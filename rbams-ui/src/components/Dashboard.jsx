@@ -36,27 +36,27 @@ export default function Dashboard({
 
   return (
     <div className="space-y-6">
-      {/* Executive Corporate Identity Banner with Enlarged High-Contrast Logo */}
-      <div className="glass-panel p-4 sm:p-5 rounded-2xl border border-cyan-500/30 laser-border-cyan flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          {/* Enlarged High-Contrast Logo Badge */}
-          <div className="p-2 sm:p-2.5 rounded-xl bg-white/[0.14] border-2 border-cyan-400 shadow-[0_0_22px_rgba(0,243,255,0.45)] backdrop-blur-md flex items-center shrink-0">
+      {/* Executive Corporate Identity Banner with Compact Precision Logo */}
+      <div className="glass-panel p-4 sm:p-5 rounded-2xl border border-cyan-500/30 laser-border-cyan flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
+          {/* Precision Logo Badge (Perkecil & Presisi Sesuai Permintaan User) */}
+          <div className="p-1.5 sm:p-2 rounded-xl bg-slate-900/90 border border-cyan-500/40 shadow-[0_0_15px_rgba(0,243,255,0.2)] backdrop-blur-md flex items-center justify-center shrink-0">
             <img
-              src="/logo-apn.png"
+              src={`${import.meta.env.BASE_URL}logo-apn-clean.png`}
               alt="Logo PT. Agung Putra Nirantara"
-              className="h-10 sm:h-12 w-auto object-contain filter contrast-150 brightness-115 drop-shadow-[0_0_10px_rgba(0,243,255,0.6)]"
+              className="h-6 sm:h-8 w-auto object-contain drop-shadow-[0_0_8px_rgba(0,243,255,0.4)]"
             />
           </div>
           <div>
-            <div className="text-[11px] font-mono-tech text-cyan-300 tracking-wider uppercase flex items-center gap-1.5">
+            <div className="text-[10px] sm:text-[11px] font-mono-tech text-cyan-300 tracking-wider uppercase flex items-center gap-1.5">
               <span>Enterprise Risk-Based Internal Audit</span>
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
               <span>Siklus Tahunan 2026</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white font-tech tracking-wide uppercase mt-0.5">
+            <h2 className="text-lg sm:text-2xl font-bold text-white font-tech tracking-wide uppercase mt-0.5">
               {COMPANY_INFO.name}
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
               Fast Moving Consumer Goods (FMCG) Manufacturing & Distribution Command Center
             </p>
           </div>

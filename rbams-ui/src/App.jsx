@@ -211,18 +211,18 @@ export default function App() {
       <footer className="mt-12 border-t border-slate-900 bg-[#070b16]/90 py-6 px-4 text-xs font-mono-tech text-slate-500">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="p-1 px-1.5 rounded-lg bg-white/[0.12] border border-cyan-400/50 flex items-center shadow-[0_0_10px_rgba(0,243,255,0.25)]">
+            <div className="p-1 px-1.5 rounded-lg bg-slate-900/80 border border-cyan-500/30 flex items-center shadow-sm">
               <img
-                src="/logo-apn.png"
+                src={`${import.meta.env.BASE_URL}logo-apn-clean.png`}
                 alt="Logo PT. Agung Putra Nirantara"
-                className="h-5 w-auto object-contain filter contrast-150 brightness-115"
+                className="h-4 sm:h-5 w-auto object-contain"
               />
             </div>
             <span className="text-white font-bold font-tech text-sm">
               {COMPANY_INFO.name}
             </span>
-            <span className="text-slate-600">|</span>
-            <span className="text-slate-400">{COMPANY_INFO.systemName} &copy; 2026</span>
+            <span className="text-slate-600 hidden sm:inline">|</span>
+            <span className="text-slate-400 hidden sm:inline">{COMPANY_INFO.systemName} &copy; 2026</span>
           </div>
 
           <div className="flex items-center gap-2.5 sm:gap-4 text-[10px] sm:text-[11px] flex-wrap justify-center sm:justify-end">

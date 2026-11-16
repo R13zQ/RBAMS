@@ -113,11 +113,11 @@ export default function ExportCenterModal({
             <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-xs font-mono-tech space-y-3">
               <div className="border-b border-slate-800 pb-3 flex justify-between items-center">
                 <div className="flex items-center gap-3">
-                  <div className="p-1 px-2 rounded-lg bg-white/[0.14] border border-cyan-400/60 shadow-[0_0_12px_rgba(0,243,255,0.3)] backdrop-blur-md flex items-center">
+                  <div className="p-1 px-2 rounded-lg bg-slate-900/90 border border-cyan-500/40 shadow-sm flex items-center">
                     <img
-                      src="/logo-apn.png"
+                      src={`${import.meta.env.BASE_URL}logo-apn-clean.png`}
                       alt="Logo PT. Agung Putra Nirantara"
-                      className="h-7 w-auto object-contain filter contrast-150 brightness-115"
+                      className="h-5 sm:h-6 w-auto object-contain"
                     />
                   </div>
                   <div>
