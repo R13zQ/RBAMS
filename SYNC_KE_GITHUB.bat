@@ -21,6 +21,7 @@ git commit -m "%msg%"
 
 echo.
 echo [3/3] Mengunggah (Push) ke GitHub...
+git pull --rebase origin main >nul 2>&1
 git push origin main
 
 echo.
