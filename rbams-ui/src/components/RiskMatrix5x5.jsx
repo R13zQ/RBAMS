@@ -93,92 +93,94 @@ export default function RiskMatrix5x5({ risks = [], onCellClick }) {
         </div>
       </div>
 
-      {/* 5x5 Grid Layout */}
-      <div className="flex gap-4">
-        {/* Vertical Axis Title */}
-        <div className="flex flex-col items-center justify-center -rotate-90 text-xs font-bold text-slate-400 tracking-wider font-tech uppercase w-6 shrink-0">
-          Dampak (1-5)
-        </div>
-
-        {/* Matrix Container */}
-        <div className="flex-1 space-y-1.5">
-          {impacts.map((imp) => (
-            <div key={imp} className="flex items-center gap-1.5">
-              {/* Row Label */}
-              <div className="w-6 text-right text-xs font-bold text-slate-400 font-mono-tech">
-                {imp}
-              </div>
-
-              {/* Grid Cells */}
-              <div className="grid grid-cols-5 gap-1.5 flex-1">
-                {probs.map((prb) => {
-                  const key = `${prb}-${imp}`;
-                  const count = cellCounts[key] || 0;
-                  const level = getCellRiskLevel(prb, imp);
-                  const isSelected = selectedCell && selectedCell.prob === prb && selectedCell.impact === imp;
-
-                  let cellBg = '';
-                  let cellText = '';
-                  let cellBorder = '';
-
-                  if (level === 'Extreme') {
-                    cellBg = 'bg-rose-950/60 hover:bg-rose-900/80';
-                    cellText = 'text-rose-300';
-                    cellBorder = 'border-rose-600/40';
-                  } else if (level === 'High') {
-                    cellBg = 'bg-amber-950/60 hover:bg-amber-900/80';
-                    cellText = 'text-amber-300';
-                    cellBorder = 'border-amber-600/40';
-                  } else if (level === 'Medium') {
-                    cellBg = 'bg-yellow-950/40 hover:bg-yellow-900/60';
-                    cellText = 'text-yellow-300';
-                    cellBorder = 'border-yellow-600/30';
-                  } else {
-                    cellBg = 'bg-emerald-950/40 hover:bg-emerald-900/60';
-                    cellText = 'text-emerald-300';
-                    cellBorder = 'border-emerald-600/30';
-                  }
-
-                  return (
-                    <button
-                      key={key}
-                      onClick={() => handleCellSelect(prb, imp)}
-                      className={`h-11 sm:h-12 rounded-xl flex flex-col items-center justify-center p-1 border transition-all duration-200 relative group ${cellBg} ${cellBorder} ${
-                        isSelected ? 'ring-2 ring-cyan-400 scale-[1.03] z-10' : ''
-                      }`}
-                    >
-                      <span className={`text-sm sm:text-base font-bold font-mono-tech ${cellText}`}>
-                        {count}
-                      </span>
-                      <span className="text-[9px] text-slate-400 font-mono-tech">
-                        P{prb}×D{imp}
-                      </span>
-                      {count > 0 && (
-                        <div className="hidden group-hover:block absolute bottom-full mb-1 z-30 px-2 py-1 rounded bg-slate-900 border border-cyan-500/50 text-[10px] text-cyan-300 whitespace-nowrap shadow-xl">
-                          {count} Risiko ({level})
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-
-          {/* Horizontal Axis Probabilities Labels */}
-          <div className="flex items-center gap-1.5 pt-1">
-            <div className="w-6" />
-            <div className="grid grid-cols-5 gap-1.5 flex-1 text-center text-xs font-bold text-slate-400 font-mono-tech">
-              <div>1 (Sangat Rendah)</div>
-              <div>2 (Rendah)</div>
-              <div>3 (Sedang)</div>
-              <div>4 (Tinggi)</div>
-              <div>5 (Sangat Tinggi)</div>
-            </div>
+      {/* 5x5 Grid Layout (Responsive on Mobile & Desktop) */}
+      <div className="overflow-x-auto pb-1 -mx-2 px-2 sm:mx-0 sm:px-0">
+        <div className="flex gap-2 sm:gap-4 min-w-[280px]">
+          {/* Vertical Axis Title */}
+          <div className="flex flex-col items-center justify-center -rotate-90 text-[10px] sm:text-xs font-bold text-slate-400 tracking-wider font-tech uppercase w-5 sm:w-6 shrink-0">
+            Dampak (1-5)
           </div>
 
-          <div className="text-center text-xs font-bold text-slate-400 tracking-wider font-tech uppercase pt-1">
-            Probabilitas / Frekuensi Kejadian (1-5)
+          {/* Matrix Container */}
+          <div className="flex-1 space-y-1 sm:space-y-1.5">
+            {impacts.map((imp) => (
+              <div key={imp} className="flex items-center gap-1 sm:gap-1.5">
+                {/* Row Label */}
+                <div className="w-5 sm:w-6 text-right text-[10px] sm:text-xs font-bold text-slate-400 font-mono-tech shrink-0">
+                  {imp}
+                </div>
+
+                {/* Grid Cells */}
+                <div className="grid grid-cols-5 gap-1 sm:gap-1.5 flex-1">
+                  {probs.map((prb) => {
+                    const key = `${prb}-${imp}`;
+                    const count = cellCounts[key] || 0;
+                    const level = getCellRiskLevel(prb, imp);
+                    const isSelected = selectedCell && selectedCell.prob === prb && selectedCell.impact === imp;
+
+                    let cellBg = '';
+                    let cellText = '';
+                    let cellBorder = '';
+
+                    if (level === 'Extreme') {
+                      cellBg = 'bg-rose-950/60 hover:bg-rose-900/80';
+                      cellText = 'text-rose-300';
+                      cellBorder = 'border-rose-600/40';
+                    } else if (level === 'High') {
+                      cellBg = 'bg-amber-950/60 hover:bg-amber-900/80';
+                      cellText = 'text-amber-300';
+                      cellBorder = 'border-amber-600/40';
+                    } else if (level === 'Medium') {
+                      cellBg = 'bg-yellow-950/40 hover:bg-yellow-900/60';
+                      cellText = 'text-yellow-300';
+                      cellBorder = 'border-yellow-600/30';
+                    } else {
+                      cellBg = 'bg-emerald-950/40 hover:bg-emerald-900/60';
+                      cellText = 'text-emerald-300';
+                      cellBorder = 'border-emerald-600/30';
+                    }
+
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => handleCellSelect(prb, imp)}
+                        className={`h-9 sm:h-12 rounded-lg sm:rounded-xl flex flex-col items-center justify-center p-0.5 sm:p-1 border transition-all duration-200 relative group ${cellBg} ${cellBorder} ${
+                          isSelected ? 'ring-2 ring-cyan-400 scale-[1.03] z-10' : ''
+                        }`}
+                      >
+                        <span className={`text-xs sm:text-base font-bold font-mono-tech ${cellText}`}>
+                          {count}
+                        </span>
+                        <span className="text-[8px] sm:text-[9px] text-slate-400 font-mono-tech leading-none">
+                          P{prb}×D{imp}
+                        </span>
+                        {count > 0 && (
+                          <div className="hidden group-hover:block absolute bottom-full mb-1 z-30 px-2 py-1 rounded bg-slate-900 border border-cyan-500/50 text-[10px] text-cyan-300 whitespace-nowrap shadow-xl">
+                            {count} Risiko ({level})
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+
+            {/* Horizontal Axis Probabilities Labels */}
+            <div className="flex items-center gap-1 sm:gap-1.5 pt-1">
+              <div className="w-5 sm:w-6 shrink-0" />
+              <div className="grid grid-cols-5 gap-1 sm:gap-1.5 flex-1 text-center text-[9px] sm:text-xs font-bold text-slate-400 font-mono-tech">
+                <div>1 <span className="hidden sm:inline">(Sangat Rendah)</span></div>
+                <div>2 <span className="hidden sm:inline">(Rendah)</span></div>
+                <div>3 <span className="hidden sm:inline">(Sedang)</span></div>
+                <div>4 <span className="hidden sm:inline">(Tinggi)</span></div>
+                <div>5 <span className="hidden sm:inline">(Sangat Tinggi)</span></div>
+              </div>
+            </div>
+
+            <div className="text-center text-[10px] sm:text-xs font-bold text-slate-400 tracking-wider font-tech uppercase pt-1">
+              Probabilitas / Frekuensi Kejadian (1-5)
+            </div>
           </div>
         </div>
       </div>

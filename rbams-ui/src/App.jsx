@@ -123,7 +123,7 @@ export default function App() {
       />
 
       {/* Main Body View */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 py-4 sm:p-6">
         {activeTab === 'dashboard' && (
           <Dashboard
             risks={risks}
@@ -225,7 +225,7 @@ export default function App() {
             <span className="text-slate-400">{COMPANY_INFO.systemName} &copy; 2026</span>
           </div>
 
-          <div className="flex items-center gap-4 text-[11px]">
+          <div className="flex items-center gap-2.5 sm:gap-4 text-[10px] sm:text-[11px] flex-wrap justify-center sm:justify-end">
             <span className="text-slate-400">
               CAE: <strong className="text-slate-300">{COMPANY_INFO.chiefAuditExecutive}</strong>
             </span>

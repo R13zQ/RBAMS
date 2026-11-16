@@ -62,7 +62,7 @@ export default function Dashboard({
           </div>
         </div>
 
-        <div className="flex items-center gap-3 self-end sm:self-auto border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-800 text-xs font-mono-tech">
+        <div className="flex items-center gap-3 self-stretch sm:self-auto border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-800 text-xs font-mono-tech justify-between sm:justify-end">
           <div className="text-right">
             <span className="text-[10px] text-slate-500 block">Chief Audit Executive</span>
             <span className="font-semibold text-slate-200">{COMPANY_INFO.chiefAuditExecutive}</span>
@@ -217,16 +217,16 @@ export default function Dashboard({
 
             return (
               <div key={d} className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-slate-700 transition">
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-white font-tech text-sm">{d}</span>
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
                       {s.count} Risiko
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 text-[11px]">
+                  <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] flex-wrap">
                     <span className="text-amber-400 font-semibold">Inherent: {formatRp(s.inherentTotal)}</span>
-                    <span className="text-slate-600">•</span>
+                    <span className="text-slate-600 hidden sm:inline">•</span>
                     <span className="text-cyan-400 font-semibold">Residual: {formatRp(s.residualTotal)}</span>
                     <span className="text-emerald-400 font-bold bg-emerald-950/80 px-1.5 py-0.5 rounded border border-emerald-800/60 text-[10px]">
                       -{s.reductionPct}%

@@ -353,6 +353,13 @@ export default function RiskFlowNetwork({
     }
   };
 
+  const handleTouch = (e) => {
+    const touch = e.touches[0];
+    if (touch) {
+      handleCanvasMouseMove({ clientX: touch.clientX, clientY: touch.clientY });
+    }
+  };
+
   const hoveredStats = hoveredDept ? departmentStats[hoveredDept] : null;
 
   return (
@@ -459,7 +466,10 @@ export default function RiskFlowNetwork({
           ref={canvasRef}
           onMouseMove={handleCanvasMouseMove}
           onClick={handleCanvasClick}
-          className="w-full h-full block"
+          onTouchStart={handleTouch}
+          onTouchMove={handleTouch}
+          onTouchEnd={handleCanvasClick}
+          className="w-full h-full block touch-none"
         />
 
         {/* Hover Tooltip Card */}

@@ -830,6 +830,15 @@ export default function AICopilot({
   const [isTyping, setIsTyping] = useState(false);
   const [displayedResponse, setDisplayedResponse] = useState('');
   const [isMaximized, setIsMaximized] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < 640 : false));
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Dynamic Free-Floating Position (X, Y in pixels)
   // Default: Top-Right of the screen, floating freely ABOVE the app
@@ -996,32 +1005,44 @@ export default function AICopilot({
 
   return (
     <>
-      {/* Floating Toggle Launcher (When Closed: Fixed at Top-Right, High Z-Index) */}
+      {/* Floating Toggle Launcher (When Closed: Bottom-Right on mobile, Top-Right on desktop) */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed top-24 right-6 z-[99990] px-4 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 text-slate-950 font-bold shadow-[0_0_30px_rgba(0,243,255,0.45)] hover:scale-105 transition-all flex items-center gap-2.5 group cursor-pointer border border-cyan-300"
-          title="Buka AI Copilot RBAMS (Panel Mengambang Bebas di Atas Aplikasi)"
+          className="fixed bottom-4 right-4 sm:bottom-auto sm:top-24 sm:right-6 z-[99990] px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-fuchsia-600 text-slate-950 font-bold shadow-[0_0_30px_rgba(0,243,255,0.45)] hover:scale-105 transition-all flex items-center gap-2 sm:gap-2.5 group cursor-pointer border border-cyan-300"
+          title="Buka AI Copilot RBAMS"
         >
-          <Bot className="w-5 h-5 text-slate-950 animate-bounce" />
+          <Bot className="w-5 h-5 text-slate-950 animate-bounce shrink-0" />
           <div className="text-left font-tech">
             <span className="text-xs uppercase tracking-wider block font-bold leading-none">
               AI Copilot
             </span>
-            <span className="text-[9px] text-slate-900 font-mono-tech leading-none">
-              100% Akurasi Data • 125 FMCG Risk Items
+            <span className="text-[9px] text-slate-900 font-mono-tech leading-none hidden xs:block">
+              100% Akurasi Data • 125 FMCG Items
             </span>
           </div>
           <span className="w-2 h-2 rounded-full bg-slate-950 animate-ping" />
         </button>
       )}
 
-      {/* FREELY MOVABLE & RESIZABLE FLOATING WINDOW (ALWAYS ON TOP) */}
+      {/* FREELY MOVABLE & RESIZABLE FLOATING WINDOW (RESPONSIVE ON MOBILE & DESKTOP) */}
       {isOpen && (
         <div
           ref={panelRef}
           style={
-            isMaximized
+            isMobile
+              ? {
+                  position: 'fixed',
+                  left: '8px',
+                  right: '8px',
+                  top: '58px',
+                  bottom: '12px',
+                  width: 'auto',
+                  height: 'auto',
+                  maxHeight: 'calc(100vh - 70px)',
+                  zIndex: 999999
+                }
+              : isMaximized
               ? {
                   position: 'fixed',
                   top: '40px',
@@ -1045,13 +1066,17 @@ export default function AICopilot({
         >
           {/* DRAG HANDLE BAR (Primary Drag Zone) */}
           <div
-            onMouseDown={handleDragMouseDown}
-            className="px-3 py-1.5 bg-gradient-to-r from-slate-950 via-fuchsia-950/70 to-slate-950 border-b border-fuchsia-500/30 flex items-center justify-between cursor-grab active:cursor-grabbing text-slate-400 hover:text-white transition group"
-            title="Tarik / Geser bilah ini untuk memindahkan kotak ke mana saja di layar"
+            onMouseDown={isMobile ? undefined : handleDragMouseDown}
+            className={`px-3 py-1.5 bg-gradient-to-r from-slate-950 via-fuchsia-950/70 to-slate-950 border-b border-fuchsia-500/30 flex items-center justify-between text-slate-400 hover:text-white transition group ${
+              isMobile ? 'cursor-default' : 'cursor-grab active:cursor-grabbing'
+            }`}
+            title={isMobile ? 'AI Copilot' : 'Tarik / Geser bilah ini untuk memindahkan kotak ke mana saja di layar'}
           >
             <div className="flex items-center gap-1.5 text-[10px] font-mono-tech text-cyan-300 font-semibold">
               <GripHorizontal className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition animate-pulse" />
-              <span className="tracking-wider uppercase">⠿ Geser Bebas / Drag Anywhere</span>
+              <span className="tracking-wider uppercase">
+                {isMobile ? 'AI Copilot RBAMS' : '⠿ Geser Bebas / Drag Anywhere'}
+              </span>
             </div>
 
             {/* Quick Position Docking Chips */}
@@ -1216,8 +1241,8 @@ export default function AICopilot({
               <span>Kirim</span>
             </button>
 
-            {/* CORNER RESIZE HANDLE (Bottom-Right) */}
-            {!isMaximized && (
+            {/* CORNER RESIZE HANDLE (Bottom-Right, Desktop Only) */}
+            {!isMaximized && !isMobile && (
               <div
                 onMouseDown={handleResizeMouseDown}
                 className="absolute bottom-1 right-1 w-4 h-4 cursor-se-resize text-fuchsia-400/70 hover:text-cyan-400 transition flex items-end justify-end p-0.5"
